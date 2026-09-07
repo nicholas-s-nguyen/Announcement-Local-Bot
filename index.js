@@ -6,6 +6,19 @@ import {Client, GatewayIntentBits, Message, Partials, ButtonBuilder,
 
 } from 'discord.js';
 
+/*Agenda
+  *put a preview, then put a yes or no, then print it out in 10 min
+  *adding people to and from the list if they're not a TO
+  *message SACAETW when sent
+  *the escape function
+  *
+  * 
+
+
+
+  test it out on different servers, from people in and out the list,
+  if sending messages keeps calling the intro, 
+*/
 // Takes an arry of intents for data
 // you want access too
 const client = new Client({
@@ -50,18 +63,39 @@ let MN_TOs ={"375118870685679616": "grizhawk",
   "477216523354898442": "themustacheman39",
   "1037860266798493716": "beetlethe",
   "188382416379969537": "vanbungle"
-  // Add any stats person
 };
 let MN_TO_IDs=Object.keys(MN_TOs);
 
-async function cancelTourney(){
+async function preview(){
 
+}
+
+async function cancelTourney(){
+  await message.author.send("Which tourney would you like to cancel?" +
+    "Send 'esc' to cancel"
+  )
+  
+  let text =`{tourney} is cancelled for {date} due to {reason}.`;
 }
 async function potBonus(){
+  await message.author.send("Which Tourney?" +
+    "Send 'esc' to cancel"
+  )
 
+  await message.author.send("How much is the pot bonus?" +
+    "Send 'esc' to cancel"
+  )
+  let text ="ATTENTION. {tournament.allcaps} HAS A {money} POT BONUS, ";
 }
 async function announceTourney(){
-
+  await message.author.send("Which tourney would you like to announce?" +
+    "Send 'esc' to cancel"
+  )
+  await message.author.send("What date?" +
+    "Send 'esc' to cancel"
+  )
+  
+  let text ="blank";
 }
 async function misc(){
 
@@ -113,11 +147,6 @@ client.on("messageCreate", async (message) => {
   if(MN_TO_IDs.includes(message.author.id) && message.guild===null) {
     try {
         await intro(message);
-        
-        // ask if they want to announce a pot bonus for the event, want to input
-        // a different event name, announce a cancellation, announce something
-        // miscellaneous
-        // then put a preview, then put a yes or no, then print it out in 10 min
     }
     catch(err) {
       console.log("Error Occurred", err);
@@ -134,7 +163,7 @@ client.on("messageCreate", async (message) => {
         );
     }
     catch {
-      console.log("Error Occurred")
+      console.log("Error Occurred");
     }
   }
 })
